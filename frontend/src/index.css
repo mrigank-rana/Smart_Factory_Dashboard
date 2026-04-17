@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+
+body {
+  color: #2a3342;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ── Structuring Classes ────────────────────────────────────────────────── */
+.glass {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.glass-2 {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+/* Pastel Cards for KPIs */
+.card-pastel {
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+/* ── Status pulse animation ─────────────────────────────────────────────── */
+.pulse-dot { animation: pulseDot 1.5s infinite; }
+
+/* ── Sidebar nav item hover ─────────────────────────────────────────────── */
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #8c9bbc;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.nav-item:hover {
+  background: #f8fafc;
+  color: #2a3342;
+  transform: translateX(2px);
+}
+.nav-item.active {
+  background: #f1f5f9;
+  color: #1e293b;
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 #3b82f6;
+}
+
+/* ── KPI card number animate ────────────────────────────────────────────── */
+.value-flash {
+  animation: valueFlash 0.4s ease-out;
+}
+@keyframes valueFlash {
+  0%   { opacity: 0.5; transform: scale(1.05); }
+  100% { opacity: 1;  transform: scale(1); }
+}
+
+/* ── Page enter ─────────────────────────────────────────────────────────── */
+.page-enter {
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+/* ── Recharts overrides ─────────────────────────────────────────────────── */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  color: #2a3342 !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+}
+.recharts-cartesian-axis-tick-value { fill: #8c9bbc !important; font-weight: 500; }
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical   line { stroke: #f1f5f9 !important; }
+
+/* ── Hover card lift ────────────────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* ── Alert slide ────────────────────────────────────────────────────────── */
+@keyframes alertSlideIn {
+  from { transform: translateX(10px) translateY(-2px); opacity: 0; }
+  to   { transform: translateX(0) translateY(0); opacity: 1; }
+}
+.alert-item { animation: alertSlideIn 0.3s ease-out; }
+
+/* ── Tooltip custom ─────────────────────────────────────────────────────── */
+.chart-tooltip {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08) !important;
+}
+
+/* ── Print Media Query for Report Modal ──────────────────────────────────── */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-report, #printable-report * {
+    visibility: visible;
+  }
+  #printable-report {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+    border: none;
+    box-shadow: none;
+  }
+  .print-hide {
+    display: none !important;
+  }
+}
